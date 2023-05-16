@@ -1,9 +1,10 @@
 import React from "react";
 import ImageGalleryItem from "./ImageGalleryItem/ImageGalleryItem";
+import { StyledImageGallery } from "./ImgGallary.styled";
 
 const ImageGallery = ({data}) => {
     return (
-        <ul>
+        <StyledImageGallery>
             {data.map(({id, webformatURL, tags}) => 
                 <ImageGalleryItem
                     data={data}
@@ -12,7 +13,7 @@ const ImageGallery = ({data}) => {
                     tags={tags}
                 />   
             )}
-        </ul>
+        </StyledImageGallery>
     )
 }
 

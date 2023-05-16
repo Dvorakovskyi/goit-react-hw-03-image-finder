@@ -4,15 +4,14 @@ export const BASE_PARAMS = {
     image_type: 'photo',
     orientation: 'horizontal',
     per_page: 12,
-    page: 1,
 };
 
 const searchParams = new URLSearchParams({
     ...BASE_PARAMS,
 })
 
-export const fetchPhotos = (request) => {
-    return fetch(`${BASE_URL}key=${API_KEY}&${searchParams}&q=${request}`).then(response => {
+export const fetchPhotos = (request, page) => {
+    return fetch(`${BASE_URL}key=${API_KEY}&${searchParams}&q=${request}&page=${page}`).then(response => {
         if (!response.ok) {
             throw new Error(response.status)
         }

@@ -1,10 +1,10 @@
 import React from 'react';
-
+import { StyledImageGalleryItem, StyledImg } from './ImgGalleryItem.style';
 const ImageGalleryItem = ({webformatURL, id, tags}) => {
   return (
-    <li key={id} className="gallery-item">
-      <img src={webformatURL} alt={tags} />
-    </li>
+    <StyledImageGalleryItem key={id}>
+      <StyledImg src={webformatURL} alt={tags} />
+    </StyledImageGalleryItem>
   );
 };
 

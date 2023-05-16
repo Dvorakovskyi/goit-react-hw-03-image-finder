@@ -15,7 +15,7 @@ class Searchbar extends React.Component {
     
     handlSubmitForm = event => {
         event.preventDefault();
-
+      
         this.props.onSubmit(this.state.request)
 
         this.setState({ request: '' });
@@ -23,13 +23,12 @@ class Searchbar extends React.Component {
 
   render() {
     return (
-      <StyledHeader className="searchbar">
-        <StyledForm className="form" onSubmit={this.handlSubmitForm}>
-          <StyledFormBtn type="submit" className="button">
-            <StyledSpan className="button-label">Search</StyledSpan>
+      <StyledHeader>
+        <StyledForm onSubmit={this.handlSubmitForm}>
+          <StyledFormBtn type="submit">
+            <StyledSpan>Search</StyledSpan>
           </StyledFormBtn>
           <StyledInput
-            className="input"
             type="text"
             autoComplete="off"
             autoFocus
