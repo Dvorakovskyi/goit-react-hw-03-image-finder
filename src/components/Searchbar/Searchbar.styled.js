@@ -28,6 +28,7 @@ export const StyledFormBtn = styled.button`
   background-position: center;
   opacity: 0.6;
   transition: opacity 250ms cubic-bezier(0.4, 0, 0.2, 1);
+  background-image: url('https://img.icons8.com/?size=512&id=59878&format=png');
   cursor: pointer;
   outline: none;
 

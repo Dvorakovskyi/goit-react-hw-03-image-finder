@@ -1,25 +1,32 @@
 import React from 'react';
-import { StyledForm, StyledFormBtn, StyledSpan, StyledInput, StyledHeader } from './Searchbar.styled';
+import PropTypes from 'prop-types';
+import {
+  StyledForm,
+  StyledFormBtn,
+  StyledSpan,
+  StyledInput,
+  StyledHeader,
+} from './Searchbar.styled';
 
 class Searchbar extends React.Component {
   state = {
     request: '',
     photos: [],
-    };
+  };
 
-    handlChangeForm = event => {
-        const { value } = event.currentTarget;
+  handlChangeForm = event => {
+    const { value } = event.currentTarget;
 
-        this.setState({request: value})
-    }
-    
-    handlSubmitForm = event => {
-        event.preventDefault();
-      
-        this.props.onSubmit(this.state.request)
+    this.setState({ request: value });
+  };
 
-        this.setState({ request: '' });
-    }
+  handlSubmitForm = event => {
+    event.preventDefault();
+
+    this.props.onSubmit(this.state.request);
+
+    this.setState({ request: '' });
+  };
 
   render() {
     return (
@@ -41,5 +48,9 @@ class Searchbar extends React.Component {
     );
   }
 }
+
+Searchbar.propTypes = {
+  onSubmit: PropTypes.func.isRequired,
+};
 
 export default Searchbar;

@@ -5,6 +5,7 @@ import Searchbar from './Searchbar/Searchbar';
 import LoadMoreBtn from './Button/Button';
 import ImageGallery from './ImageGallery/ImageGallery';
 import Loader from './Loader/Loader';
+import Modal from './Modal/Modal';
 import { StyledApp } from './App.styled';
 
 export class App extends React.Component {
@@ -14,24 +15,8 @@ export class App extends React.Component {
     page: 1,
     isLoader: false,
     error: null,
-  };
-
-  handleSubmit = request => {
-    if (request !== '') {
-      this.setState({ request });
-    } else {
-      Notify.info('I`m waiting for your request');
-    }
-
-    if (this.state.request !== request) {
-      this.setState({ photos: [] });
-    }
-  };
-
-  handleLoadMoreClick = () => {
-    this.setState(prevState => ({
-      page: prevState.page + 1,
-    }));
+    isShowModal: false,
+    largePhotos: null,
   };
 
   componentDidUpdate(_, prevState) {
@@ -60,19 +45,59 @@ export class App extends React.Component {
     }
   }
 
+  handleSubmit = request => {
+    if (request !== '') {
+      this.setState({ request });
+    } else {
+      Notify.info('I`m waiting for your request');
+    }
+
+    if (this.state.request !== request) {
+      this.setState({ photos: [] });
+    }
+  };
+
+  handleLoadMoreClick = () => {
+    this.setState(prevState => ({
+      page: prevState.page + 1,
+    }));
+  };
+
+  openModal = ({ largeImageURL, tags }) => {
+    this.setState({
+      isShowModal: true,
+      largePhotos: {
+        largeImageURL,
+        tags,
+      },
+    });
+  };
+
+  closeModal = () => {
+    this.setState({
+      isShowModal: false,
+      largePhotos: null,
+    });
+  };
+
   render() {
-    const { photos, isLoader, error } = this.state;
+    const { photos, isLoader, error, isShowModal, largePhotos } = this.state;
 
     return (
       <StyledApp>
         {error &&
           Notify.failure('Something went wrong, please try again later')}
         <Searchbar onSubmit={this.handleSubmit} />
-        <ImageGallery data={this.state.photos} />
+        <ImageGallery data={this.state.photos} onClick={this.openModal} />
         {photos.length > 0 && (
           <LoadMoreBtn onClick={this.handleLoadMoreClick} />
         )}
         {isLoader && <Loader />}
+        {isShowModal && (
+          <Modal onClick={this.closeModal}>
+            <img src={largePhotos.largeImageURL} alt={largePhotos.tags} />
+          </Modal>
+        )}
       </StyledApp>
     );
   }
